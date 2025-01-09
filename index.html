@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grec Symbol Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .table {
+            display: table;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .row {
+            display: table-row;
+        }
+        .cell {
+            display: table-cell;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 50px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .cell:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Grec Symbol Table</h1>
+    <p>Cliquez sur un symbole pour le copier dans le presse-papier.</p>
+    <div class="table" id="symbols-table"></div>
+
+    <script>
+        const lowercase = ['α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ', 'μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'σ', 'τ', 'υ', 'φ', 'χ', 'ψ', 'ω'];
+        const uppercase = ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'];
+
+        const table = document.getElementById('symbols-table');
+
+        for (let i = 0; i < lowercase.length; i++) {
+            const row = document.createElement('div');
+            row.className = 'row';
+
+            const upperCell = document.createElement('div');
+            upperCell.className = 'cell';
+            upperCell.textContent = uppercase[i];
+            upperCell.onclick = () => copyToClipboard(uppercase[i]);
+
+            const lowerCell = document.createElement('div');
+            lowerCell.className = 'cell';
+            lowerCell.textContent = lowercase[i];
+            lowerCell.onclick = () => copyToClipboard(lowercase[i]);
+
+            row.appendChild(upperCell);
+            row.appendChild(lowerCell);
+            table.appendChild(row);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Le symbole "${text}" a été copié dans le presse-papier.`);
+            }).catch(err => {
+                console.error('Échec de la copie', err);
+            });
+        }
+    </script>
+</body>
+</html>
+
